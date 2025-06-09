@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signInUser, signUpUser } from "../redux/thunks/authThunks.js";
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button.jsx";
@@ -40,7 +40,7 @@ const CommonForm = ({ formData, buttonText = "Submit" }) => {
         toast.success("User logged in successfully!");
         console.log(response);
       }
-      dispatch(triggerConfetti());
+      // dispatch(triggerConfetti());
       await navigate("/profile");
     } catch (error) {
       navigate("/auth");
