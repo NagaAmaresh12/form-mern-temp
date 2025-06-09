@@ -1,0 +1,50 @@
+{
+    "projectTitle": "Sustainable Agriculture Initiative",
+    "projectSanctionedBy": "Department of Agriculture",
+    "projectInspectingAuthority": "Dr. A.K. Verma",
+    "projectLocation": "Nashik, Maharashtra",
+    "projectBudget": 1200000,
+    "projectTeamDetails": [
+      {
+        "name": "Rajesh Kumar",
+        "contactNumber": "9876543210",
+        "headQtrs": "Nashik"
+      },
+      {
+        "name": "Sneha Mehta",
+        "contactNumber": "9876512345",
+        "headQtrs": "Pune"
+      }
+    ],
+    "projectObjectives": "Improve irrigation methods and train farmers in organic farming practices.",
+    "projectDuration": "6 Months",
+    "projectCommencementDate": "2024-11-01",
+    "projectActivities": [
+      {
+        "name": "Soil Testing Camp",
+        "daywiseWorkProgress": "Day 1 - Sample Collection, Day 2 - Lab Testing",
+        "placeOfVisit": "Village Borgaon",
+        "actionTaken": "Soil samples tested for pH, nutrients",
+        "actionImpact": "Identified soil deficiencies",
+        "programAttendance": "35 farmers",
+        "observations": "Most soil lacked nitrogen content"
+      },
+      {
+        "name": "Organic Farming Workshop",
+        "daywiseWorkProgress": "Day 1 - Theory, Day 2 - Field Demo",
+        "placeOfVisit": "Village Sangamner",
+        "actionTaken": "Trained farmers on composting and crop rotation",
+        "actionImpact": "60% farmers adopted organic practices",
+        "programAttendance": "50 farmers",
+        "observations": "High engagement, need for follow-up"
+      }
+    ],
+    "projectRangeCoverage": {
+      "numberOfVillages": 5,
+      "totalPopulation": 4500,
+      "numberOfFarmers": 1200
+    },
+    "requiredSupportFromHO": "Additional training material and soil kits",
+    "pendingWorks": "Distribution of fertilizers and follow-up training in December"
+  }
+  
