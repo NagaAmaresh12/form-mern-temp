@@ -83,6 +83,7 @@ const ProjectsList = () => {
       }
     })
     .filter((project) => isWithinRange(project.projectCommencementDate));
+  // console.log({ filteredProjects });
 
   if (status === "loading") {
     return (
@@ -119,7 +120,11 @@ const ProjectsList = () => {
               onChange={(e) => setSearch(e.target.value)}
               className="w-[40%] bg-zinc-200"
             />
-
+            {filteredProjects && (
+              <span>
+                ({filteredProjects.length}/{projects.length})
+              </span>
+            )}
             <Input
               type="date"
               value={startDate}

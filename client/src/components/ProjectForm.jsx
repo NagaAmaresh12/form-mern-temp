@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { formatBudget } from "./FormatBudget";
-import { useWatch } from "react-hook-form";
+import { set, useWatch } from "react-hook-form";
 import { Label } from "./ui/label";
 import {
   Building,
@@ -64,7 +64,9 @@ const ProjectForm = ({
   deleteProjectHandler,
   control,
 }) => {
-  const [activityFilter, setActivityFilter] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [filteredActivitiesCount, setfilteredActivitiesCount] = useState(0);
 
   const watchedBudget = watch("projectBudget");
   const rawWatchedExpenditures = useWatch({
@@ -88,11 +90,25 @@ const ProjectForm = ({
 
   const remainingBudget = Number(watchedBudget || 0) - totalSpent;
   const filteredActivities = useMemo(() => {
-    if (!activityFilter) return activityFields;
-    return activityFields.filter(
-      (activity) => activity.date === activityFilter
-    );
-  }, [activityFilter, activityFields]);
+    if (!startDate || !endDate) return activityFields;
+
+    const start = new Date(`${startDate}T00:00:00`);
+    const end = new Date(`${endDate}T23:59:59`);
+
+    return activityFields.filter((activity) => {
+      const activityDate = new Date(activity.date);
+      return activityDate >= start && activityDate <= end;
+    });
+  }, [startDate, endDate, activityFields]);
+  // Update count when filteredActivities change
+  useEffect(() => {
+    if (!startDate || !endDate) {
+      setfilteredActivitiesCount(0);
+    } else {
+      setfilteredActivitiesCount(filteredActivities.length);
+      console.log("Filtered Activities Count:", filteredActivities);
+    }
+  }, [filteredActivities, startDate, endDate]);
 
   return (
     <form
@@ -441,14 +457,35 @@ const ProjectForm = ({
             <ListTodo />
             Activities
           </Label>
+          {/* Filter activities by date */}
           <div className="flex items-center gap-2">
+            {activityFields && !filteredActivitiesCount ? (
+              <span>{activityFields.length}</span>
+            ) : (
+              <span>
+                ({filteredActivitiesCount}/
+                {activityFields && activityFields.length})
+              </span>
+            )}
+
             <Label className={"hidden lg:block"}>Filter:</Label>
-            <Input
-              type="date"
-              className="w-full lg:w-[11vw]"
-              value={activityFilter}
-              onChange={(e) => setActivityFilter(e.target.value)}
-            />
+            <div>
+              <Input
+                type="date"
+                className="w-full lg:w-[11vw]"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                placeholder="Start Date"
+              />
+              <span>to</span>
+              <Input
+                type="date"
+                className="w-full lg:w-[11vw]"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                placeholder="End Date"
+              />
+            </div>
           </div>
         </div>
         {filteredActivities.map((fld, i) => (
@@ -876,33 +913,6 @@ const ProjectForm = ({
         )}
       </div>
       {/* Budget summary recap */}
-      {/* {watchedBudget && watchedExpenditures && (
-        <p className="w-1/3 flex items-center justify-start gap-x-4 ">
-          <div className="flex items-center justify-between gap-x-2">
-            <DollarSign />
-            <Label>Total Budget:</Label>
-          </div>
-
-          <span className="border-2 text-sm bg-green-400/80 font-bold border-green-400 rounded-md px-2 py-2 text-white">
-            ₹ {formatBudget(watchedBudget)}
-          </span>
-        </p>
-      )}
-      {watchedBudget && (
-        <p className="w-1/3 flex items-center justify-start gap-x-2 ">
-          <PieChart />
-          <Label htmlFor="">Remaining Budget:</Label>
-          <span
-            className={`text-sm ${
-              remainingBudget < 0
-                ? "bg-rose-400/80 border-2 border-rose-400"
-                : "bg-yellow-400/80 border-2 border-yellow-400"
-            } px-2 py-2 rounded-md text-white font-bold tracking-wider`}
-          >
-            ₹ {formatBudget(remainingBudget)}
-          </span>
-        </p>
-      )} */}
 
       {/* Actions */}
       <div className="flex justify-end gap-4">

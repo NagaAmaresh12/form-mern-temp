@@ -35,22 +35,12 @@ const ProjectDetails = () => {
       projectInspectingAuthority: "",
       projectLocation: "",
       projectBudget: "",
-      projectObjectives: "",
-      projectDuration: "",
       projectCommencementDate: "", // Use YYYY-MM-DD format
-      projectStartDate: "", // Use projectCommencementDate or rename for clarity
-      projectEndDate: "",
-      projectExpenditure: [{ description: "", amount: "", date: "" }],
-      projectRangeCoverage: {
-        numberOfVillages: "",
-        totalPopulation: "",
-        numberOfFarmers: "",
-      },
-      requiredSupportFromHO: "",
-      pendingWorks: "",
       projectTeamDetails: [
         { firstName: "", lastName: "", contactNumber: "", headQtrs: "" },
       ],
+      projectObjectives: "",
+      projectDuration: "",
       projectActivities: [
         {
           name: "",
@@ -61,6 +51,16 @@ const ProjectDetails = () => {
           actionImpact: "",
         },
       ],
+      projectStartDate: "", // Use projectCommencementDate or rename for clarity
+      projectEndDate: "",
+      projectExpenditure: [{ description: "", amount: "", date: "" }],
+      projectRangeCoverage: {
+        numberOfVillages: "",
+        totalPopulation: "",
+        numberOfFarmers: "",
+      },
+      requiredSupportFromHO: "",
+      pendingWorks: "",
 
       // Ensure all fields are initialized to empty strings or appropriate defaults
       // projectStatus: "ongoing", // Default status
@@ -130,7 +130,7 @@ const ProjectDetails = () => {
         loading={true} // boolean to toggle visibility
       />
     );
-  if (!projects) return <div>Project not found.</div>;
+  if (!projects) return <i>Project not found.</i>;
 
   return (
     <ProjectForm
